@@ -25,6 +25,12 @@ wsServer.on('connection', (ws) => {
         console.log(
           `${data.content} joined the chat, total clients: ${wsServer.clients.size}\n`
         );
+        for (const client of clients.keys()) {
+          // boradcast the join message to all clients except the sender
+          if (client !== ws) {
+            client.send(`${data.content} joined the chat`);
+          }
+        }
         break;
       case MSG_TYPE.MESSAGE:
         console.log(data.content);
