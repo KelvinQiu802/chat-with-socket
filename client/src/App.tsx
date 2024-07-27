@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.css';
 import { createMessage } from './utils/message';
 
 let ws: WebSocket | null = null;
