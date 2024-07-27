@@ -37,6 +37,12 @@ wsServer.on('connection', (ws) => {
         break;
       case MSG_TYPE.LEAVE:
         console.log(`${clients.get(ws)} left the chat\n`);
+        for (const client of clients.keys()) {
+          // brodacast the leave message to all clients except the sender
+          if (client !== ws) {
+            client.send(`${clients.get(ws)} left the chat`);
+          }
+        }
         break;
       default:
         console.log(`Invalid message type: ${data.type}\n`);
